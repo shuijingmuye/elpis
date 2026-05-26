@@ -30,18 +30,18 @@ module.exports = (app) => {
         // 截取路径
         name = name.substring(name.lastIndexOf(`middleware${sep}`) + `middleware${sep}`.length, name.lastIndexOf('.js'));
         // 把‘-’变成驼峰，custom-module/custom-module.js => customModule.customModule.js
-        name = name.replace(/-([a-z])/g, (s)=> s.substring(1).toUpperCase());
+        name = name.replace(/[_-][a-z]/ig, (s)=> s.substring(1).toUpperCase());
         // 挂载 middleware 到内存 app 对象中
         let tempMiddleware = middlewares;
         const names = name.split(sep);
         for(let i = 0,len = names.length; i < len ; i++) {
             if(i === len - 1) {
-                tempMiddleware[name[i]] = require(path.resolve(file))(app);
+                tempMiddleware[names[i]] = require(path.resolve(file))(app);
             } else {
-                if(!tempMiddleware[name[i]]) {
-                    tempMiddleware[name[i]] = {};
+                if(!tempMiddleware[names[i]]) {
+                    tempMiddleware[names[i]] = {};
                 }
-                tempMiddleware = tempMiddleware[name[i]];
+                tempMiddleware = tempMiddleware[names[i]];
             }
         }
     });
