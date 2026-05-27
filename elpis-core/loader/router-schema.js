@@ -1,4 +1,5 @@
 
+// const { pa } = require('element-plus/es/locale/index.mjs');
 const glob = require('glob');
 const path = require('path');
 const { sep } = path; // 兼容不同操作系统上的斜杆
@@ -21,7 +22,7 @@ const { sep } = path; // 兼容不同操作系统上的斜杆
 module.exports = (app) => {
     // 读取app/router-schema/**/**.js  所有js文件
     const routerSchemaPath = path.resolve(app.businessPath,`.${sep}router-schema`);
-    const fileList = glob.sync(routerSchemaPath, `.${sep}**${sep}**.js`);
+    const fileList = glob.sync(path.resolve(routerSchemaPath, `.${sep}**${sep}**.js`));
     
     // 注册所有 routerSchema ,使得可以 'app.routerSchema' 这样访问
     let routerSchema = {};

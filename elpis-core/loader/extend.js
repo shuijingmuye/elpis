@@ -19,7 +19,7 @@ const { sep } = path; // 兼容不同操作系统上的斜杆
 module.exports = (app) => {
     // 读取app/extend/**.js  目录下的所有js文件
     const extendPath = path.resolve(app.businessPath,`.${sep}extend`);
-    const fileList = glob.sync(extendPath, `.${sep}**${sep}**.js`);
+    const fileList = glob.sync(path.resolve(extendPath, `.${sep}**${sep}**.js`));
 
     // 遍历所有文件目录，把内容加载到app.extend 下
     fileList.forEach(file => {

@@ -20,7 +20,7 @@ const { sep } = path; // 兼容不同操作系统上的斜杆
 module.exports = (app) => {
     // 读取app/middleware/**/**.js  目录下的所有js文件
     const middlewarePath = path.resolve(app.businessPath,`.${sep}middleware`);
-    const fileList = glob.sync(middlewarePath, `.${sep}**${sep}**.js`);
+    const fileList = glob.sync(path.resolve(middlewarePath, `.${sep}**${sep}**.js`));
 
     // 遍历所有文件目录，把内容加载到app.middlewares 下
     const middlewares = {};
